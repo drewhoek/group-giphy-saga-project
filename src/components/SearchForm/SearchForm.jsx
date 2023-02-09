@@ -5,12 +5,13 @@ function SearchForm() {
 	const [search, setSearch] = useState("");
 	const dispatch = useDispatch();
 
-	const inInput = (event) => {
-		console.log("This is the event", event.target.value);
-		setSearch(event.target.value);
-	};
+	// const inInput = (event) => {
+	// 	console.log("This is the event", event.target.value);
+	// 	setSearch(event.target.value);
+	// };
 
 	const handleSubmit = () => {
+		// setSearch(event.target.value);
 		dispatch({
 			type: "SEARCH_GIF",
 			payload: search,
@@ -22,12 +23,12 @@ function SearchForm() {
 			<h2>HELLO</h2>
 			<input
 				onChange={(event) => {
-					inInput(event);
+					setSearch(event.target.value);
 				}}
 				placeholder="Search Value"
 				value={search}
 			></input>
-			<button onClick={handleSubmit}>Submit</button>
+			<button onClick={() => handleSubmit()}>Submit</button>
 		</div>
 	);
 }

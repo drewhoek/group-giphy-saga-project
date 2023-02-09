@@ -9,12 +9,13 @@ function App(props) {
       <h1>Giphy Search!</h1>
       <Router>
 
-        <Route path="/giflist">
-          <GifList />
-        </Route>
+        {/* <Route path="/giflist">
+       
+        </Route> */}
 
         <Route path='/form'>
           <SearchForm />
+          <GifList />
         </Route>
 
       </Router>

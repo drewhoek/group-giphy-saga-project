@@ -3,10 +3,10 @@ import axios from "axios";
 import ReactDOM from "react-dom";
 import App from "./components/App/App";
 import { Provider } from "react-redux";
-import { put, takeEvery } from 'redux-saga/effects';
+import { put, takeEvery } from "redux-saga/effects";
 import createSagaMiddleware from "redux-saga";
 import { createStore, combineReducers, applyMiddleware } from "redux";
-import logger from 'redux-logger';
+import logger from "redux-logger";
 
 const middleWareSaga = createSagaMiddleware();
 
@@ -18,19 +18,21 @@ function* getCategories(action) {
     try {
         const results = yield axios.get("/api/category");
         yield put({
-            type: "GET_CATEGORIES", payload: results.data
+            type: "GET_CATEGORIES",
+            payload: results.data,
         });
     } catch (err) {
-
         console.log("Error in getCategories", err);
     }
 }
 
 function* gifForm(action) {
     try {
-        yield axios.post(`/api/search/`, action.payload);
+        console.log("this is the action", action);
+        const response = yield axios.post(`/api/search`, { data: action.payload });
         yield put({
-            type: "SEARCH_GIF",
+            type: "GIF_RED",
+            payload: response.data
         });
     } catch (err) {
         console.log("ERROR IN ", err);
@@ -57,7 +59,6 @@ function favoriteReducer(state = [], action) {
     }
     return state;
 }
-
 
 const store = createStore(
     combineReducers({
