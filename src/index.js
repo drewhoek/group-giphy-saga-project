@@ -11,8 +11,10 @@ import logger from "redux-logger";
 const middleWareSaga = createSagaMiddleware();
 
 function* rootSaga() {
+    yield takeEvery("SET_FAVORITES", getFavorites);
     yield takeEvery("GET_CATEGORIES", getCategories);
     yield takeEvery("SEARCH_GIF", gifForm);
+    yield takeEvery("ADD_FAVORITE", addFavorite);
 }
 function* getCategories(action) {
     try {
@@ -33,6 +35,33 @@ function* gifForm(action) {
         yield put({
             type: "GIF_RED",
             payload: response.data
+        });
+    } catch (err) {
+        console.log("ERROR IN ", err);
+    }
+}
+
+function* getFavorites(action) {
+    try {
+        const response = yield axios.get("/api/favorite");
+        yield put({ type: "SET_FAVORITES", payload: response.data });
+    } catch (error) {
+        console.log("error in getFavorites", error);
+    }
+}
+
+function* addFavorite(action) {
+    const newFavorite = {
+        name: action.payload.name,
+        url: action.payload.url
+    };
+
+    console.log(newFavorite);
+    try {
+        console.log("this is the action", action);
+        yield axios.post(`/api/favorite`, newFavorite);
+        yield put({
+            type: "GET_FAVORITES",
         });
     } catch (err) {
         console.log("ERROR IN ", err);

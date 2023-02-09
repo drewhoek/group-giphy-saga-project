@@ -20,11 +20,11 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
   console.log("in Favorite POST");
   const url = req.body.url;
-  const categoryName = req.body.category_name;
-  const query = `INSERT INTO "favorites" ("url", "category_name")
+  const name = req.body.name;
+  const query = `INSERT INTO "favorites" ("url", "name")
   VALUES ($1, $2);`;
   pool
-    .query(query, [url, categoryName])
+    .query(query, [url, name])
     .then(() => {
       res.sendStatus(201);
     })
