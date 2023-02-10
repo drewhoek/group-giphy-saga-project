@@ -11,11 +11,12 @@ import logger from "redux-logger";
 const middleWareSaga = createSagaMiddleware();
 
 function* rootSaga() {
-    yield takeEvery("SET_FAVORITES", getFavorites);
+    yield takeEvery("GET_FAVORITES", getFavorites);
     yield takeEvery("GET_CATEGORIES", getCategories);
     yield takeEvery("SEARCH_GIF", gifForm);
     yield takeEvery("ADD_FAVORITE", addFavorite);
 }
+
 function* getCategories(action) {
     try {
         const results = yield axios.get("/api/category");
@@ -29,6 +30,7 @@ function* getCategories(action) {
 }
 
 function* gifForm(action) {
+    console.log('in gifForm', action);
     try {
         console.log("this is the action", action);
         const response = yield axios.post(`/api/search`, { data: action.payload });
@@ -41,10 +43,12 @@ function* gifForm(action) {
     }
 }
 
+
 function* getFavorites(action) {
     try {
         const response = yield axios.get("/api/favorite");
-        yield put({ type: "SET_FAVORITES", payload: response.data });
+        yield put({ type: "FETCH_FAVORITES", payload: response.data });
+        console.log('response in getfavorites', response.data);
     } catch (error) {
         console.log("error in getFavorites", error);
     }
@@ -55,13 +59,13 @@ function* addFavorite(action) {
         name: action.payload.name,
         url: action.payload.url
     };
-
     console.log(newFavorite);
     try {
         console.log("this is the action", action);
         yield axios.post(`/api/favorite`, newFavorite);
         yield put({
-            type: "GET_FAVORITES",
+            type: "SET_FAVORITES",
+            payload: newFavorite
         });
     } catch (err) {
         console.log("ERROR IN ", err);
@@ -69,7 +73,7 @@ function* addFavorite(action) {
 }
 
 function categoryReducer(state = [], action) {
-    if (action.type === "GET_CATEGORIES") {
+    if (action.type === "SET_CATEGORIES") {
         return action.payload;
     }
     return state;
@@ -83,11 +87,16 @@ function gifReducer(state = [], action) {
 }
 
 function favoriteReducer(state = [], action) {
-    if (action.type === "GET_FAVORITES") {
-        return action.payload;
+    switch (action.type) {
+        case "FETCH_FAVORITES":
+            return action.payload;
+        case "SET_FAVORITES":
+            return [...state, action.payload];
+        default:
+            return state;
     }
-    return state;
 }
+
 
 const store = createStore(
     combineReducers({

@@ -3,18 +3,14 @@ import GifList from '../GifList/GifList';
 import FavoriteGif from '../FavoriteGif/FavoriteGif';
 import { HashRouter as Router, Route } from 'react-router-dom';
 import SearchForm from '../SearchForm/SearchForm';
+import './App.css';
 
 function App(props) {
   return (
-    <div>
-      <h1>Giphy Search!</h1>
+    <div className='app'>
+      <h1 className='app-title'>Giphy Galore!</h1>
       <Router>
-
-        {/* <Route path="/giflist">
-       
-        </Route> */}
-
-        <Route path='/form'>
+        <Route path='/' exact>
           <SearchForm />
           <GifList />
         </Route>

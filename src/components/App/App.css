@@ -1,0 +1,26 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: linear-gradient(to right, #93c8ea, #8282f1, #4949df);
+
+
+}
+
+.app {
+    background: linear-gradient(to right, #93c8ea, #8282f1, #4949df);
+    height:100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.app-title {
+color: white ;
+padding-bottom: 2em;
+text-align: center;
+font-size: 40px;
+text-shadow: 2px 2px 4px rgb(12, 235, 251);
+}

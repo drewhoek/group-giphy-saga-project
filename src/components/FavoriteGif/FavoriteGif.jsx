@@ -2,18 +2,21 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 function FavoriteGif() {
-	const fav = useSelector((store) => store.favorites);
+	const favorites = useSelector((store) => store.favorites);
+	console.log(favorites);
 	const dispatch = useDispatch();
 	useEffect(() => {
-		dispatch({ type: "SET_FAVORITES" });
-		dispatch({ type: "ADD_FAVORITE" });
-	});
+		dispatch({ type: "GET_FAVORITES" });
+	}, []);
 	return (
-		<div>
-			{fav.map((index) => (
-				<img key={index} gif={gif} src={gif.images?.original?.url} />
-			))}
-		</div>
+		<>
+			<h2>Our Favorites</h2>
+			<div>
+				{favorites.map((favorite, index) => (
+					<img key={index} src={favorite.url} />
+				))}
+			</div>
+		</>
 	);
 }
 

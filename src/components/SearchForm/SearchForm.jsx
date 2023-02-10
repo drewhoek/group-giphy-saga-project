@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import "./SearchForm.css";
 
 function SearchForm() {
 	const [search, setSearch] = useState("");
@@ -19,16 +20,19 @@ function SearchForm() {
 		setSearch("");
 	};
 	return (
-		<div>
-			<h2>HELLO</h2>
+		<div className="search-form">
+			<h2 className="search-title">SEARCH SUM GIPHYS!</h2>
 			<input
+				className="input"
 				onChange={(event) => {
 					setSearch(event.target.value);
 				}}
 				placeholder="Search Value"
 				value={search}
 			></input>
-			<button onClick={() => handleSubmit()}>Submit</button>
+			<button className="submit-button" onClick={() => handleSubmit()}>
+				Submit
+			</button>
 		</div>
 	);
 }
