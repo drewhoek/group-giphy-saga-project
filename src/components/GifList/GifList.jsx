@@ -9,7 +9,11 @@ function GifList() {
 		<div className="gif-list">
 			{gifs.map((gif, index) => (
 				<>
-					<img key={index} src={gif.images?.original?.url} />
+					<img
+						className="gif-images"
+						key={index}
+						src={gif.images?.original?.url}
+					/>
 					<br />
 					<br />
 					<br />
@@ -26,7 +30,7 @@ function GifList() {
 							})
 						}
 					>
-						Favorite
+						❤️
 					</button>
 				</>
 			))}

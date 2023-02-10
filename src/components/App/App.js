@@ -7,8 +7,11 @@ import './App.css';
 
 function App(props) {
   return (
+
     <div className='app'>
-      <h1 className='app-title'>Giphy Galore!</h1>
+      <header className='app-header'>
+        <h1 className='app-title'>Giphy Galore!</h1>
+      </header>
       <Router>
         <Route path='/' exact>
           <SearchForm />

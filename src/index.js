@@ -15,6 +15,21 @@ function* rootSaga() {
     yield takeEvery("GET_CATEGORIES", getCategories);
     yield takeEvery("SEARCH_GIF", gifForm);
     yield takeEvery("ADD_FAVORITE", addFavorite);
+    yield takeEvery("UPDATE_CATEGORY", updateCategory);
+}
+
+function* updateCategory(action) {
+    try {
+        yield axios.put(`/api/favorite/${action.payload.id}`, {
+            category_id: action.payload.category_id
+        });
+        yield put({
+            type: "GET_FAVORITES",
+            payload: action.payload,
+        });
+    } catch (err) {
+        console.log("Error in updating favorite category", err);
+    }
 }
 
 function* getCategories(action) {
@@ -30,25 +45,24 @@ function* getCategories(action) {
 }
 
 function* gifForm(action) {
-    console.log('in gifForm', action);
+    console.log("in gifForm", action);
     try {
         console.log("this is the action", action);
         const response = yield axios.post(`/api/search`, { data: action.payload });
         yield put({
             type: "GIF_RED",
-            payload: response.data
+            payload: response.data,
         });
     } catch (err) {
         console.log("ERROR IN ", err);
     }
 }
 
-
 function* getFavorites(action) {
     try {
         const response = yield axios.get("/api/favorite");
         yield put({ type: "FETCH_FAVORITES", payload: response.data });
-        console.log('response in getfavorites', response.data);
+        console.log("response in getfavorites", response.data);
     } catch (error) {
         console.log("error in getFavorites", error);
     }
@@ -57,7 +71,7 @@ function* getFavorites(action) {
 function* addFavorite(action) {
     const newFavorite = {
         name: action.payload.name,
-        url: action.payload.url
+        url: action.payload.url,
     };
     console.log(newFavorite);
     try {
@@ -65,7 +79,7 @@ function* addFavorite(action) {
         yield axios.post(`/api/favorite`, newFavorite);
         yield put({
             type: "SET_FAVORITES",
-            payload: newFavorite
+            payload: newFavorite,
         });
     } catch (err) {
         console.log("ERROR IN ", err);
@@ -96,7 +110,6 @@ function favoriteReducer(state = [], action) {
             return state;
     }
 }
-
 
 const store = createStore(
     combineReducers({

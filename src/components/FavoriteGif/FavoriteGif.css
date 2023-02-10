@@ -1,0 +1,51 @@
+
+.input {
+
+background: white;
+text-align: center;
+border: none;
+border-radius: 20px;
+padding: 10px 30px;
+font-size: 20px;
+width: 50%;
+margin: 50px;
+margin-bottom: 20px; 
+outline: none;
+
+}
+.favorite-title {
+    color: white ;
+padding-bottom: 2em;
+text-align: center;
+font-size: 40px;
+text-shadow: 2px 2px 4px rgb(12, 235, 251);
+}
+
+.favorite-container .input{
+    border: #3a0a9f solid 5px;
+    padding: 20px;
+   
+    
+}
+
+
+
+
+
+.update-button {
+    padding: 8px;
+    background: linear-gradient(to right, #93c8ea, #8282f1, #4949df);
+    margin-bottom: 30px;
+    margin-top: 25px;
+    border-radius: 50px;
+    background-color: #3a0a9f;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    cursor: pointer;
+    border: none;
+}
+
+.update-button:hover {
+    background-color: #4949df;
+}
+
